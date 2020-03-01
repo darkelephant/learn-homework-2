@@ -9,12 +9,24 @@
 
 """
 
+import datetime
+
 def print_days():
     """
     Эта функция вызывается автоматически при запуске скрипта в консоли
     В ней надо заменить pass на ваш код
     """
-    pass
+    today = datetime.datetime.now()
+    day = datetime.timedelta(days = 1)
+    print(today - day)
+    print(today)
+    previous_month = today.replace(day = 1) - datetime.timedelta(days = 1)
+    try:
+        previous_month = previous_month.replace(day = today.day)
+    except ValueError:
+        pass
+    print(previous_month)
+
     
     
 def str_2_datetime(string):
@@ -22,7 +34,7 @@ def str_2_datetime(string):
     Эта функция вызывается автоматически при запуске скрипта в консоли
     В ней надо заменить pass на ваш код
     """
-    pass
+    return datetime.datetime.strptime(string, '%m/%d/%y %H:%M:%S.%f')
 
 if __name__ == "__main__":
     print_days()
