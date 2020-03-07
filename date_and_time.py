@@ -17,10 +17,10 @@ def print_days():
     В ней надо заменить pass на ваш код
     """
     today = datetime.datetime.now()
-    day = datetime.timedelta(days = 1)
+    day = datetime.timedelta(days=1)
     print(today - day)
     print(today)
-    previous_month = today.replace(day = 1) - datetime.timedelta(days = 1)
+    previous_month = today.replace(day=1) - datetime.timedelta(days=1)
     try:
         previous_month = previous_month.replace(day = today.day)
     except ValueError:

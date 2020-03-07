@@ -35,7 +35,7 @@ PLANETS = {'Mercury':ephem.Mercury,
                'Sun':ephem.Sun, 
               'Moon':ephem.Moon, }
 
-def getNumEnding(number, array):
+def get_num_ending(number, array):
     # array массив слов или окончаний для чисел (1, 4, 5)
     number = number % 100
     if number >= 11 and number <= 19:
@@ -54,8 +54,6 @@ def get_count_words(text):
     for char in string.punctuation:
         while char in text:
             text = text.replace(char, ' ')
-    while '  ' in text:
-        text = text.replace('  ', ' ')
     return len(text.split())
 
 
@@ -79,7 +77,7 @@ def count_words(bot, update):
     user_input = update.message.text.split()
     if len(user_input) > 1:
         cnt_words = get_count_words(' '.join(user_input[1:]))
-        update.message.reply_text(f'Вы ввели {cnt_words} {getNumEnding(cnt_words,["слово","слова","слов"])}')    
+        update.message.reply_text(f'Вы ввели {cnt_words} {get_num_ending(cnt_words,["слово","слова","слов"])}')    
     else:
         update.message.reply_text('Вы ввели 0 слов')
 
@@ -92,13 +90,17 @@ def next_full_moon(bot, update):
             date_user = datetime.datetime.strptime(date_user, '%d.%m.%Y')
             date_full_moon = ephem.next_full_moon(date_user)
             delta_days = date_full_moon.datetime() - today
-            update.message.reply_text(f'Ближайшее полнолуние {date_full_moon.datetime().strftime("%d.%m.%Y")}, осталось {delta_days.days} {getNumEnding(delta_days.days, ["день","дня","дней"])}')
+            count_days_word = get_num_ending(delta_days.days, ["день","дня","дней"])
+            nearest_full_moon = date_full_moon.datetime().strftime("%d.%m.%Y")
+            update.message.reply_text(f'Ближайшее полнолуние {nearest_full_moon}, осталось {delta_days.days} {count_days_word}')
         except ValueError:
             update.message.reply_text('Дата указана неверно, попробуйте в формате ДД.ММ.ГГГГ')
     else:
         date_full_moon = ephem.next_full_moon(today)
         delta_days = date_full_moon.datetime() - today
-        update.message.reply_text(f'Ближайшее полнолуние {date_full_moon.datetime().strftime("%d.%m.%Y")}, осталось {delta_days.days} {getNumEnding(delta_days.days, ["день","дня","дней"])}')
+        count_days_word = get_num_ending(delta_days.days, ["день","дня","дней"])
+        nearest_full_moon = date_full_moon.datetime().strftime("%d.%m.%Y")
+        update.message.reply_text(f'Ближайшее полнолуние {nearest_full_moon}, осталось {delta_days.days} {count_days_word}')
 
 
 def talk_to_me(bot, update):

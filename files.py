@@ -13,27 +13,26 @@
 """
 import string
 
+
 def count_words(text):
     for char in string.punctuation:
         while char in text:
             text = text.replace(char, ' ')
-    while '  ' in text:
-        text = text.replace('  ', ' ')
     return len(text.split())
+
 
 def main():
     """
     Эта функция вызывается автоматически при запуске скрипта в консоли
     В ней надо заменить pass на ваш код
     """
-    input_file = open('referat.txt', 'r', encoding='utf8')
-    text = input_file.read()
-    input_file.close()
+    with open('referat.txt', 'r', encoding='utf8') as input_file:
+        text = input_file.read()
     print(f"Длина строки {len(text)}")
     print(f"Количество слов {count_words(text)}")
-    output_file = open('referat2.txt', 'w', encoding='utf8')
-    output_file.write(text.replace('.','!'))
-    output_file.close()
+    with open('referat2.txt', 'w', encoding='utf8') as output_file:
+        output_file.write(text.replace('.','!'))
+
 
 if __name__ == "__main__":
     main()

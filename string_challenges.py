@@ -28,8 +28,6 @@ for word in sentence.split(' '):
 
 # Вывести усреднённую длину слова.
 sentence = 'Мы приехали в гости'
-d = {'words':0, 'avg_len_word':0}
-words = sentence.split(' ')
-d['words'] = len(words)
-d['avg_len_word'] = sum([len(word) for word in words]) / d['words']
-print(d['avg_len_word'])
+words = sentence.split()
+avg_len_word = sum([len(word) for word in words]) / len(words)
+print(avg_len_word)
